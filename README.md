@@ -94,7 +94,7 @@ Debug why my Bazel builds are slow. use nativelink
 ```
 
 ```
-Generate Kubernetes deployment for Nativelink. use nativelink
+Invoke bazel build //... after whenever a file is saved. use nativelink
 ```
 
 ## Available Tools
