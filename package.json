@@ -1,0 +1,55 @@
+{
+  "name": "@nativelink/mcp-server",
+  "version": "1.0.0",
+  "description": "MCP server for Nativelink Cloud - Get optimized Bazel configurations and build performance insights for app.nativelink.com",
+  "type": "module",
+  "main": "dist/index.js",
+  "bin": {
+    "nativelink-mcp": "dist/index.js"
+  },
+  "scripts": {
+    "build": "tsc",
+    "dev": "tsx src/index.ts",
+    "start": "node dist/index.js",
+    "test": "echo \"No tests yet\"",
+    "prepublishOnly": "npm run build"
+  },
+  "keywords": [
+    "mcp",
+    "nativelink",
+    "bazel",
+    "build-cache",
+    "remote-execution",
+    "cursor",
+    "claude"
+  ],
+  "author": "TraceMachina, Inc.",
+  "license": "FSL-1.1-Apache-2.0",
+  "dependencies": {
+    "@modelcontextprotocol/sdk": "^1.0.0",
+    "commander": "^14.0.0",
+    "undici": "^6.6.3",
+    "zod": "^3.24.2"
+  },
+  "devDependencies": {
+    "@types/node": "^20.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "files": [
+    "dist",
+    "README.md",
+    "LICENSE"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/TraceMachina/mcp-server-nativelink.git"
+  },
+  "bugs": {
+    "url": "https://github.com/TraceMachina/mcp-server-nativelink/issues"
+  },
+  "homepage": "https://app.nativelink.com"
+}

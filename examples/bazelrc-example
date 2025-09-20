@@ -1,0 +1,38 @@
+# Example .bazelrc for Nativelink Cloud
+# Get your personalized configuration from https://app.nativelink.com
+
+# ============================================================
+# IMPORTANT: Replace this with your actual configuration
+# from app.nativelink.com after signing up
+# ============================================================
+
+# Cache Configuration
+build --remote_cache=grpcs://cas-tracemachina-shared.build-faster.nativelink.net
+build --remote_header=x-nativelink-api-key=YOUR_API_KEY_FROM_DASHBOARD
+
+# Build Event Service (BES)
+build --bes_backend=grpcs://bes-tracemachina-shared.build-faster.nativelink.net
+build --bes_header=x-nativelink-api-key=YOUR_BES_API_KEY_FROM_DASHBOARD
+build --bes_results_url=https://app.nativelink.com/a/YOUR_BUILD_ID/build
+
+# Remote Execution
+build --remote_executor=grpcs://scheduler-tracemachina-shared.build-faster.nativelink.net:443
+build --remote_timeout=600
+
+# Performance Optimizations
+build --remote_download_minimal
+build --experimental_remote_cache_compression
+build --experimental_remote_cache_async
+build --remote_max_connections=200
+build --jobs=200
+
+# Language-Specific Settings (example for Rust)
+# build --@rules_rust//rust/settings:pipelined_compilation=True
+
+# Build Reproducibility
+build --incompatible_strict_action_env
+build --action_env=BAZEL_DO_NOT_DETECT_CPP_TOOLCHAIN=1
+
+# Test Configuration
+test --test_output=errors
+test --test_summary=detailed

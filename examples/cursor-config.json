@@ -1,0 +1,11 @@
+{
+  "mcpServers": {
+    "nativelink": {
+      "command": "npx",
+      "args": ["-y", "@nativelink/mcp-server"],
+      "env": {
+        "NATIVELINK_API_KEY": "YOUR_API_KEY_HERE"
+      }
+    }
+  }
+}
