@@ -20,6 +20,7 @@ import { generateBazelConfig, GetBazelConfigSchema } from './tools/config.js';
 import { getNativelinkDocs, GetNativelinkDocsSchema } from './tools/docs.js';
 import { analyzeBuildPerformance, AnalyzeBuildPerformanceSchema } from './tools/performance.js';
 import { generateDeploymentConfig, GenerateDeploymentConfigSchema } from './tools/deployment.js';
+import { setupWatchAndBuild, SetupWatchAndBuildSchema } from './tools/watch.js';
 
 const CONFIG: NativelinkConfig = {
   apiKey: process.env.NATIVELINK_API_KEY,
@@ -166,6 +167,42 @@ async function createNativelinkServer(config: NativelinkConfig) {
           },
           required: ['platform', 'scale']
         }
+      },
+      {
+        name: 'setup-watch-and-build',
+        description: 'Set up automatic Bazel builds and tests on file changes with Nativelink',
+        inputSchema: {
+          type: 'object',
+          properties: {
+            command: {
+              type: 'string',
+              enum: ['build', 'test', 'both'],
+              description: 'What to run on file changes (default: both)'
+            },
+            targets: {
+              type: 'string',
+              description: 'Bazel targets to build/test (default: //...)'
+            },
+            watchPaths: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Paths/patterns to watch for changes'
+            },
+            excludePaths: {
+              type: 'array',
+              items: { type: 'string' },
+              description: 'Paths/patterns to exclude from watching'
+            },
+            debounceMs: {
+              type: 'number',
+              description: 'Milliseconds to wait before rebuilding (100-10000, default: 1000)'
+            },
+            useIbazel: {
+              type: 'boolean',
+              description: 'Use iBazel for intelligent watching (recommended)'
+            }
+          }
+        }
       }
     ]
   }));
@@ -215,6 +252,17 @@ async function createNativelinkServer(config: NativelinkConfig) {
             content: [{
               type: 'text',
               text: deployment
+            }]
+          };
+        }
+
+        case 'setup-watch-and-build': {
+          const params = SetupWatchAndBuildSchema.parse(args);
+          const watchConfig = setupWatchAndBuild(params);
+          return {
+            content: [{
+              type: 'text',
+              text: watchConfig
             }]
           };
         }
@@ -388,6 +436,42 @@ async function startHttpServer() {
                     },
                     required: ['platform', 'scale']
                   }
+                },
+                {
+                  name: 'setup-watch-and-build',
+                  description: 'Set up automatic Bazel builds and tests on file changes with Nativelink',
+                  inputSchema: {
+                    type: 'object',
+                    properties: {
+                      command: {
+                        type: 'string',
+                        enum: ['build', 'test', 'both'],
+                        description: 'What to run on file changes (default: both)'
+                      },
+                      targets: {
+                        type: 'string',
+                        description: 'Bazel targets to build/test (default: //...)'
+                      },
+                      watchPaths: {
+                        type: 'array',
+                        items: { type: 'string' },
+                        description: 'Paths/patterns to watch for changes'
+                      },
+                      excludePaths: {
+                        type: 'array',
+                        items: { type: 'string' },
+                        description: 'Paths/patterns to exclude from watching'
+                      },
+                      debounceMs: {
+                        type: 'number',
+                        description: 'Milliseconds to wait before rebuilding (100-10000, default: 1000)'
+                      },
+                      useIbazel: {
+                        type: 'boolean',
+                        description: 'Use iBazel for intelligent watching (recommended)'
+                      }
+                    }
+                  }
                 }
               ]
             };
@@ -421,6 +505,11 @@ async function startHttpServer() {
                 case 'generate-deployment-config': {
                   const params = GenerateDeploymentConfigSchema.parse(args);
                   content = generateDeploymentConfig(params);
+                  break;
+                }
+                case 'setup-watch-and-build': {
+                  const params = SetupWatchAndBuildSchema.parse(args);
+                  content = setupWatchAndBuild(params);
                   break;
                 }
                 default:

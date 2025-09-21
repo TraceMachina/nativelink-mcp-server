@@ -10,6 +10,7 @@ MCP (Model Context Protocol) server for [Nativelink Cloud](https://app.nativelin
 - 🚀 **Generate optimized Bazel configurations** using Nativelink Cloud endpoints
 - 📚 **Access Nativelink Cloud setup and migration guides** directly in your AI assistant
 - 📊 **Analyze build performance** with AI-powered recommendations
+- 🔄 **Set up automatic builds and tests** with file watchers and Nativelink caching
 - 🏗️ **Generate deployment configurations** for self-hosted Nativelink instances
 - 🔐 **Integration with app.nativelink.com** for personalized configurations
 - 💡 **Smart recommendations** based on your project's specific needs
@@ -94,7 +95,7 @@ Debug why my Bazel builds are slow. use nativelink
 ```
 
 ```
-Invoke bazel build //... after whenever a file is saved. use nativelink
+Set up automatic builds and tests after file changes. use nativelink
 ```
 
 ## Available Tools
@@ -150,6 +151,29 @@ Generates deployment configurations for various platforms.
 ```
 Generate a Kubernetes deployment for Nativelink with autoscaling. use nativelink
 ```
+
+### 5. `setup-watch-and-build`
+Sets up automatic Bazel builds and tests on file changes with Nativelink Cloud caching.
+
+**Parameters:**
+- `command` (optional): build, test, or both (default: both)
+- `targets` (optional): Bazel targets to build/test (default: //...)
+- `useIbazel` (optional): Use iBazel for intelligent watching (recommended)
+- `watchPaths` (optional): Paths/patterns to watch
+- `excludePaths` (optional): Paths/patterns to exclude
+- `debounceMs` (optional): Delay before rebuilding (default: 1000ms)
+
+**Example:**
+```
+Set up automatic builds and tests when files change. use nativelink
+```
+
+**What it provides:**
+- Configuration for iBazel (intelligent Bazel watcher)
+- Setup instructions for watchexec, entr, nodemon
+- Custom watch scripts
+- VS Code task configuration
+- Integration with Nativelink Cloud for instant cache hits
 
 ## Configuration
 
