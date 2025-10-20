@@ -29,8 +29,8 @@ logs/
 # Testing
 coverage/
 .nyc_output/
+wait-for-it.sh
 
 # Package manager
-package-lock.json
 yarn.lock
 pnpm-lock.yaml
