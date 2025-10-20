@@ -42,10 +42,10 @@ claude mcp add nativelink -- npx -y @nativelink/mcp-server --api-key YOUR_API_KE
 
 ### VS Code
 
-Add to your VS Code settings:
+Add to your [VS Code MCP settings](https://code.visualstudio.com/docs/copilot/customization/mcp-servers#_add-an-mcp-server):
 
 ```json
-"mcp": {
+{
   "servers": {
     "nativelink": {
       "type": "stdio",
