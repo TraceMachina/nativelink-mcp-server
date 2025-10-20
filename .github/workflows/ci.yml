@@ -41,7 +41,7 @@ jobs:
         path: dist/
 
   test-mcp:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-24.04
     needs: build
 
     steps:
@@ -61,6 +61,7 @@ jobs:
     - name: Test with MCP Inspector
       run: |
         npx @modelcontextprotocol/inspector node dist/index.js &
-        sleep 5
-        kill %1
-      continue-on-error: true
+        curl -O https://raw.githubusercontent.com/vishnubob/wait-for-it/refs/heads/master/wait-for-it.sh
+        chmod +x wait-for-it.sh
+        ./wait-for-it.sh --timeout=240 -h localhost -p 6274
+        curl -v http://localhost:6277/config

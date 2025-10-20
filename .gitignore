@@ -29,6 +29,7 @@ logs/
 # Testing
 coverage/
 .nyc_output/
+wait-for-it.sh
 
 # Package manager
 yarn.lock
