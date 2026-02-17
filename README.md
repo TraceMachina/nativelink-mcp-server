@@ -21,6 +21,10 @@ MCP (Model Context Protocol) server for [Nativelink Cloud](https://app.nativelin
 
 [![Install MCP Server](https://cursor.com/deeplink/mcp-install-dark.svg)](https://cursor.com/en/install-mcp?name=nativelink&config=eyJjb21tYW5kIjoibnB4IiwiYXJncyI6WyIteSIsIkBuYXRpdmVsaW5rL21jcC1zZXJ2ZXIiXX0%3D)
 
+### Cursor Rules
+
+[![Cursor Rules](https://img.shields.io/badge/Cursor-Rules-2ea043)](./.cursorrules)
+
 Or manually add to your Cursor configuration (`~/.cursor/mcp.json`):
 
 ```json
@@ -53,6 +57,24 @@ Add to your [VS Code MCP settings](https://code.visualstudio.com/docs/copilot/cu
       "args": ["-y", "@nativelink/mcp-server", "--api-key", "YOUR_API_KEY"]
     }
   }
+}
+```
+
+### Local Development (Cursor + VS Code)
+
+If you want to run the MCP server from a local checkout:
+
+```bash
+npm install
+npm run build
+```
+
+Then point your MCP config to the built entrypoint:
+
+```json
+{
+  "command": "node",
+  "args": ["/ABS/PATH/TO/nativelink-mcp-server/dist/index.js"]
 }
 ```
 

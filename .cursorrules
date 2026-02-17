@@ -1,0 +1,9 @@
+# Cursor rules for nativelink-mcp-server
+
+- Use TypeScript (ESM) and keep source changes in `src/`.
+- Add new tools under `src/tools/` and wire them in `src/index.ts`.
+- Validate inputs with `zod` schemas colocated with the tool.
+- Prefer small, composable helpers in `src/lib/`.
+- Avoid introducing new runtime dependencies unless justified.
+- Do not commit build output in `dist/`.
+- Update `README.md` when adding tools or changing config.
